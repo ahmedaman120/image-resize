@@ -1,0 +1,44 @@
+{
+    "name": "typescriptstarter",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "fix:prettier": "prettier --write \"./src/*.ts\"",
+        "fix:lint": "eslint  \"./src/*.ts\" --fix",
+        "fix:lintjs": "eslint  \"./build/*.js\" --fix",
+        "test:lint": "eslint  \"./src/*.ts\"",
+        "build": "npx tsc",
+        "start": "nodemon ./build/app.js",
+        "test:jasmine": "jasmine",
+        "test": "npm run build && npm run test:jasmine"
+    },
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "@types/cookie-parser": "^1.4.2",
+        "@types/express": "^4.17.13",
+        "@types/jasmine": "^3.10.3",
+        "@types/supertest": "^2.0.11",
+        "@typescript-eslint/eslint-plugin": "^5.12.0",
+        "@typescript-eslint/parser": "^5.12.0",
+        "eslint": "^8.9.0",
+        "eslint-config-prettier": "^8.3.0",
+        "eslint-plugin-eslint-comments": "^3.2.0",
+        "eslint-plugin-functional": "^4.2.0",
+        "eslint-plugin-import": "^2.25.4",
+        "eslint-plugin-prettier": "^4.0.0",
+        "supertest": "^6.2.2",
+        "typescript": "^4.5.5"
+    },
+    "dependencies": {
+        "cookie-parser": "^1.4.6",
+        "cors": "^2.8.5",
+        "express": "^4.17.2",
+        "fs": "^0.0.1-security",
+        "jasmine": "^4.0.2",
+        "jasmine-spec-reporter": "^7.0.0",
+        "logger": "^0.0.1",
+        "prettier": "^2.5.1"
+    }
+}
