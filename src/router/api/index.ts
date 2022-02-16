@@ -11,14 +11,6 @@ router.get('/image', async (req, res) => {
     const nameOfImage: string = req.query.name as unknown as string;
     const width: string = req.query.width as unknown as string;
     const height: string = req.query.height as unknown as string;
-    console.log(nameOfImage)
-    console.log(isNaN(+width))
-    console.log(isNaN(+height))
-    console.log(path.join(__dirname,MAIN_IMAGE_DIR, nameOfImage))
-    console.log(fs.existsSync(path.join(__dirname,MAIN_IMAGE_DIR, nameOfImage)))
-    // const file = await fs.promises.open(path.join(MAIN_IMAGE_DIR, nameOfImage),'r');
-    // const img  =await fs.promises.readFile(file);
-    // console.log(img)
     if (!fs.existsSync(path.join(__dirname,MAIN_IMAGE_DIR, nameOfImage))) {
       // check the file not exist in our collection
       return res.status(400).send('Check your inputs well');
