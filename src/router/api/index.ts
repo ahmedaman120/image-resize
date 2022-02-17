@@ -8,7 +8,6 @@ const router = express.Router()
 const MAIN_IMAGE_EXTENTION = 'png'
 
 router.get('/image',ImageValidator.validateImageParm, async (req, res) => {
-  const MAIN_IMAGE_DIR = '../../public/images/'
   try {
     const nameOfImage: string = req.query.name as unknown as string
     const width: string = req.query.width as unknown as string
