@@ -11,7 +11,7 @@ const path_1 = __importDefault(require("path"));
 const app = (0, express_1.default)();
 app.use((0, cookie_parser_1.default)());
 app.use((0, morgan_1.default)('combined'));
-app.use('/static', express_1.default.static(path_1.default.join(__dirname, 'public')));
+app.use('/static', express_1.default.static(path_1.default.join(__dirname, '../public')));
 const port = 3000;
 app.use('/api', api_1.default);
 app.listen(port, () => {

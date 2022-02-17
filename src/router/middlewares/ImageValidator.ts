@@ -26,7 +26,7 @@ export default {
         )
     }
     const nameOfImage: string = req.query.name as unknown as string
-    const MAIN_IMAGE_DIR = '../../public/images/'
+    const MAIN_IMAGE_DIR = '../../../public/images/'
     const MAIN_IMAGE_EXTENTION = 'png'
 
     if (

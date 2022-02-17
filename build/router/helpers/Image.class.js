@@ -40,20 +40,6 @@ class Image {
             }
         });
     }
-    // static async getImage(img: I_image): Promise<null | string> {
-    //   if (!img.name) {
-    //     return null
-    //   }
-    //   const filePath: string = path.resolve(Image.OUT_PATH, img.name)
-    //   try {
-    //     console.log(filePath)
-    //     await fs.promises.access(filePath)
-    //     return filePath
-    //   } catch (error) {
-    //     console.log(error)
-    //     return null
-    //   }
-    // }
     static isImageExist(filename = '') {
         return __awaiter(this, void 0, void 0, function* () {
             if (!filename) {
@@ -96,5 +82,5 @@ class Image {
     }
 }
 exports.Image = Image;
-Image.OUT_PATH = path_1.default.join(__dirname, '../../public/out/').toString();
-Image.IN_PATH = path_1.default.join(__dirname, '../../public/images/').toString();
+Image.OUT_PATH = path_1.default.join(__dirname, '../../../public/out/').toString();
+Image.IN_PATH = path_1.default.join(__dirname, '../../../public/images/').toString();

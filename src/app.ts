@@ -7,7 +7,7 @@ import path from 'path'
 const app = express()
 app.use(cookieParser())
 app.use(morgan('combined'))
-app.use('/static', express.static(path.join(__dirname, 'public')))
+app.use('/static', express.static(path.join(__dirname, '../public')))
 const port = 3000
 
 app.use('/api', routes)

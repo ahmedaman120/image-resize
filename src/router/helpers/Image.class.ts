@@ -4,8 +4,8 @@ import path from 'path'
 import fs from 'fs'
 
 export class Image {
-  static OUT_PATH = path.join(__dirname, '../../public/out/').toString()
-  static IN_PATH = path.join(__dirname, '../../public/images/').toString()
+  static OUT_PATH = path.join(__dirname, '../../../public/out/').toString()
+  static IN_PATH = path.join(__dirname, '../../../public/images/').toString()
   
 
   static createImageName(
