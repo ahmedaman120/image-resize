@@ -17,6 +17,25 @@ const sharp_1 = __importDefault(require("sharp"));
 const path_1 = __importDefault(require("path"));
 const fs_1 = __importDefault(require("fs"));
 class Image {
+    static resize(image) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const imgName = `thump-${image.name}.png`;
+                const out = path_1.default.join(Image.OUT_PATH, imgName).toString();
+                const targetImage = path_1.default.join(image.In_path, image.name);
+                yield (0, sharp_1.default)(targetImage)
+                    .resize(+image.width, +image.height)
+                    .toFile(out);
+                image.name = imgName;
+                image.Out_path = Image.OUT_PATH;
+                return image;
+            }
+            catch (error) {
+                console.error(error);
+                return null;
+            }
+        });
+    }
     static getImage(img) {
         return __awaiter(this, void 0, void 0, function* () {
             if (!img.name) {
@@ -32,40 +51,18 @@ class Image {
             }
         });
     }
-    static resize(image) {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const imgName = `img-${Date.now()}.png`;
-                const out = path_1.default.join(Image.OUT_PATH, imgName).toString();
-                console.log(image);
-                const targetImage = path_1.default.join(image.In_path, image.name);
-                console.log(targetImage);
-                yield (0, sharp_1.default)(targetImage)
-                    .resize(+image.width, +image.height)
-                    .toFile(out);
-                image.name = imgName;
-                image.Out_path = Image.OUT_PATH;
-                console.log(image);
-                return 'success';
-            }
-            catch (error) {
-                console.error(error);
-                return null;
-            }
-        });
-    }
-    static isImageAvailable(filename = '') {
+    static isImageExist(filename = '') {
         return __awaiter(this, void 0, void 0, function* () {
             if (!filename) {
                 return false; // Fail early
             }
-            return (yield Image.getAvailableImageNames()).includes(filename);
+            return (yield Image.getAllImages()).includes(filename);
         });
     }
-    static getAvailableImageNames() {
+    static getAllImages() {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                return (yield fs_1.default.promises.readdir(Image.IN_PATH)).map((filename) => filename.split('.')[0]);
+                return yield fs_1.default.promises.readdir(Image.IN_PATH);
             }
             catch (_a) {
                 return [];

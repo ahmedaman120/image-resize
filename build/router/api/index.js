@@ -14,36 +14,26 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 /* eslint-disable prettier/prettier */
 const express_1 = __importDefault(require("express"));
-const fs_1 = __importDefault(require("fs"));
-const path_1 = __importDefault(require("path"));
 const Image_class_1 = require("../helpers/Image.class");
+const ImageValidator_1 = __importDefault(require("../middlewares/ImageValidator"));
 const router = express_1.default.Router();
-function createImg(img) {
-    return img;
-}
-router.get('/image', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const MAIN_IMAGE_EXTENTION = 'png';
+router.get('/image', ImageValidator_1.default.validateImageParm, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const MAIN_IMAGE_DIR = '../../public/images/';
     try {
         const nameOfImage = req.query.name;
         const width = req.query.width;
         const height = req.query.height;
-        if (!fs_1.default.existsSync(path_1.default.join(__dirname, MAIN_IMAGE_DIR, nameOfImage))) {
-            // check the file not exist in our collection
-            return res.status(400).send('Check your inputs well');
-        }
-        if (isNaN(+width) || isNaN(+height)) {
-            // check the input width and height is'n numbers
-            return res.status(400).send('Check your inputs well');
-        }
         const img = {
             In_path: Image_class_1.Image.IN_PATH,
             width: width,
             height: height,
-            name: nameOfImage
+            name: `${nameOfImage}.${MAIN_IMAGE_EXTENTION}`,
         };
         const ret = yield Image_class_1.Image.resize(img);
         console.log(ret);
-        res.send("now we can work well");
+        yield (yield Image_class_1.Image.getAllImages()).forEach((value) => { console.log(value); });
+        res.send('now we can work well');
     }
     catch (error) {
         console.log(error);
