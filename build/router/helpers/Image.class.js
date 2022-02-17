@@ -17,10 +17,14 @@ const sharp_1 = __importDefault(require("sharp"));
 const path_1 = __importDefault(require("path"));
 const fs_1 = __importDefault(require("fs"));
 class Image {
+    static createImageName(name, width, height) {
+        const imgName = `thump-${name === null || name === void 0 ? void 0 : name.split('.')[0]}-${width}-${height}.png`;
+        return imgName;
+    }
     static resize(image) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const imgName = `thump-${image.name}.png`;
+                const imgName = Image.createImageName(image.name, image.width, image.height);
                 const out = path_1.default.join(Image.OUT_PATH, imgName).toString();
                 const targetImage = path_1.default.join(image.In_path, image.name);
                 yield (0, sharp_1.default)(targetImage)
@@ -36,21 +40,20 @@ class Image {
             }
         });
     }
-    static getImage(img) {
-        return __awaiter(this, void 0, void 0, function* () {
-            if (!img.name) {
-                return null;
-            }
-            const filePath = path_1.default.resolve(Image.OUT_PATH, img.name);
-            try {
-                yield fs_1.default.promises.access(filePath);
-                return filePath;
-            }
-            catch (error) {
-                return null;
-            }
-        });
-    }
+    // static async getImage(img: I_image): Promise<null | string> {
+    //   if (!img.name) {
+    //     return null
+    //   }
+    //   const filePath: string = path.resolve(Image.OUT_PATH, img.name)
+    //   try {
+    //     console.log(filePath)
+    //     await fs.promises.access(filePath)
+    //     return filePath
+    //   } catch (error) {
+    //     console.log(error)
+    //     return null
+    //   }
+    // }
     static isImageExist(filename = '') {
         return __awaiter(this, void 0, void 0, function* () {
             if (!filename) {
@@ -62,10 +65,32 @@ class Image {
     static getAllImages() {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                return yield fs_1.default.promises.readdir(Image.IN_PATH);
+                return yield fs_1.default.promises.readdir(Image.OUT_PATH);
             }
             catch (_a) {
                 return [];
+            }
+        });
+    }
+    static createThumpnails(image) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                //check if image exist or not 
+                const name = Image.createImageName(image.name, image.width, image.height);
+                if (yield Image.isImageExist(name)) {
+                    console.log('get existent');
+                    image.name = name;
+                    image.Out_path = Image.OUT_PATH;
+                    return image;
+                }
+                else {
+                    console.log('creat new');
+                    const resized_image = yield Image.resize(image);
+                    return resized_image;
+                }
+            }
+            catch (error) {
+                return null;
             }
         });
     }

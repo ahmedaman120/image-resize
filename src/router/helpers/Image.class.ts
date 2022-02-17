@@ -6,10 +6,23 @@ import fs from 'fs'
 export class Image {
   static OUT_PATH = path.join(__dirname, '../../public/out/').toString()
   static IN_PATH = path.join(__dirname, '../../public/images/').toString()
+  
 
+  static createImageName(
+    name: string | undefined,
+    width: number,
+    height: number
+  ): string {
+    const imgName = `thump-${name?.split('.')[0]}-${width}-${height}.png`;
+    return imgName;
+  }
   static async resize(image: I_image): Promise<null | I_image> {
     try {
-      const imgName = `thump-${image.name}.png`
+      const imgName = Image.createImageName(
+        image.name,
+        image.width,
+        image.height
+      );
       const out: string = path.join(Image.OUT_PATH, imgName).toString()
       const targetImage = path.join(image.In_path, image.name)
       await sharp(targetImage as unknown as string)
@@ -24,18 +37,6 @@ export class Image {
     }
   }
 
-  static async getImage(img: I_image): Promise<null | string> {
-    if (!img.name) {
-      return null
-    }
-    const filePath: string = path.resolve(Image.OUT_PATH, img.name)
-    try {
-      await fs.promises.access(filePath)
-      return filePath
-    } catch (error) {
-      return null
-    }
-  }
 
   static async isImageExist(filename = ''): Promise<boolean> {
     if (!filename) {
@@ -47,9 +48,33 @@ export class Image {
 
   static async getAllImages(): Promise<string[]> {
     try {
-      return await fs.promises.readdir(Image.IN_PATH)
+      return await fs.promises.readdir(Image.OUT_PATH)
     } catch {
       return []
+    }
+  }
+
+  static async createThumpnails(image: I_image): Promise<I_image | null> {
+    try {
+      //check if image exist or not 
+      const name: string = Image.createImageName(
+        image.name,
+        image.width,
+        image.height
+      );
+      if (await Image.isImageExist(name)) {
+        console.log('get existent');
+        image.name = name;
+        image.Out_path = Image.OUT_PATH;
+        return image
+      } else {
+        console.log('creat new');
+
+        const resized_image: I_image | null = await Image.resize(image);
+        return resized_image;
+      }
+    } catch (error) {
+      return null
     }
   }
 }

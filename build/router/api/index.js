@@ -19,7 +19,6 @@ const ImageValidator_1 = __importDefault(require("../middlewares/ImageValidator"
 const router = express_1.default.Router();
 const MAIN_IMAGE_EXTENTION = 'png';
 router.get('/image', ImageValidator_1.default.validateImageParm, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const MAIN_IMAGE_DIR = '../../public/images/';
     try {
         const nameOfImage = req.query.name;
         const width = req.query.width;
@@ -30,10 +29,8 @@ router.get('/image', ImageValidator_1.default.validateImageParm, (req, res) => _
             height: height,
             name: `${nameOfImage}.${MAIN_IMAGE_EXTENTION}`,
         };
-        const ret = yield Image_class_1.Image.resize(img);
-        console.log(ret);
-        yield (yield Image_class_1.Image.getAllImages()).forEach((value) => { console.log(value); });
-        res.send('now we can work well');
+        const ret = yield Image_class_1.Image.createThumpnails(img);
+        res.redirect(`/static/out/${ret === null || ret === void 0 ? void 0 : ret.name}`);
     }
     catch (error) {
         console.log(error);
