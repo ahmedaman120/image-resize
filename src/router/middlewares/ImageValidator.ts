@@ -10,7 +10,7 @@ export default {
         .send('Not found the image please check the image list')
     }
 
-    if (req.query.width && parseFloat(req.query.width) <= 0) {
+    if (req.query.width && parseFloat(req.query.width as string) <= 0) {
       return res
         .status(400)
         .send(
@@ -18,7 +18,7 @@ export default {
         )
     }
 
-    if (req.query.height && parseFloat(req.query.height) <= 0) {
+    if (req.query.height && parseFloat(req.query.height as string) <= 0) {
       return res
         .status(400)
         .send(
@@ -41,7 +41,7 @@ export default {
       // check the file not exist in our collection
       return res
         .status(400)
-        .send('Not found the image please check the image on our list');
+        .send('Not found the image please check the image on our list')
     }
     next()
   },

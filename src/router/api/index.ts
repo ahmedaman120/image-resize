@@ -19,6 +19,8 @@ router.get('/image',ImageValidator.validateImageParm, async (req, res) => {
       name: `${nameOfImage}.${MAIN_IMAGE_EXTENTION}`,
     }
     const ret: null | I_image = await Image.createThumpnails(img)
+    // res.sendFile(ret?.Out_path as string)
+    // res.sendStatus(200)
     res.redirect(`/static/out/${ret?.name}`)
   } catch (error) {
     console.log(error)

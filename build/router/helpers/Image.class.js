@@ -28,7 +28,7 @@ class Image {
                 const out = path_1.default.join(Image.OUT_PATH, imgName).toString();
                 const targetImage = path_1.default.join(image.In_path, image.name);
                 yield (0, sharp_1.default)(targetImage)
-                    .resize(+image.width, +image.height)
+                    .resize(parseInt(image.width), parseInt(image.height))
                     .toFile(out);
                 image.name = imgName;
                 image.Out_path = Image.OUT_PATH;
@@ -61,7 +61,7 @@ class Image {
     static createThumpnails(image) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                //check if image exist or not 
+                //check if image exist or not
                 const name = Image.createImageName(image.name, image.width, image.height);
                 if (yield Image.isImageExist(name)) {
                     console.log('get existent');

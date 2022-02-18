@@ -30,6 +30,8 @@ router.get('/image', ImageValidator_1.default.validateImageParm, (req, res) => _
             name: `${nameOfImage}.${MAIN_IMAGE_EXTENTION}`,
         };
         const ret = yield Image_class_1.Image.createThumpnails(img);
+        // res.sendFile(ret?.Out_path as string)
+        // res.sendStatus(200)
         res.redirect(`/static/out/${ret === null || ret === void 0 ? void 0 : ret.name}`);
     }
     catch (error) {
