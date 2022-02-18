@@ -13,7 +13,7 @@ const test_width = 100
 const test_height = 100
 
 beforeAll((done) => {
-  console.log(OUTPUT_PATH)
+  // console.log(OUTPUT_PATH)
   fs.rmSync(OUTPUT_PATH + '/', { recursive: true })
   fs.mkdirSync(OUTPUT_PATH)
   done()

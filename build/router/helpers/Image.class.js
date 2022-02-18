@@ -42,9 +42,10 @@ class Image {
     static isImageExist(filename = '') {
         return __awaiter(this, void 0, void 0, function* () {
             if (!filename) {
-                return false; // Fail early
+                //end if it empty
+                return false;
             }
-            return (yield Image.getAllImages()).includes(filename);
+            return (yield Image.getAllImages()).includes(filename); // ['test','test-2'].include(filename)
         });
     }
     static getAllImages() {

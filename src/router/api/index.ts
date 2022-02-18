@@ -1,4 +1,5 @@
 /* eslint-disable prettier/prettier */
+import {Request, Response} from 'express'
 import express from 'express'
 import { Image } from '../helpers/Image.class'
 import I_image from '../interfaces/I_image'
@@ -9,7 +10,7 @@ const router = express.Router()
 
 const MAIN_IMAGE_EXTENTION = 'png'
 
-router.get('/image',ImageValidator.validateImageParm, async (req, res) => {
+router.get('/image',ImageValidator.validateImageParm, async (req: Request, res: Response): Promise<void> => {
   try {
     const nameOfImage: string = req.query.name as unknown as string
     const width: string = req.query.width as unknown as string
