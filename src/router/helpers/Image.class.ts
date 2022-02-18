@@ -12,7 +12,7 @@ export class Image {
     width: number,
     height: number
   ): string {
-    const imgName = `thump-${name?.split('.')[0]}-${width}-${height}.png`
+    const imgName = `thumb-${name?.split('.')[0]}-${width}-${height}.png`
     return imgName
   }
 
@@ -20,8 +20,8 @@ export class Image {
     try {
       const imgName = Image.createImageName(
         image.name,
-        image.width,
-        image.height
+        image.width as number,
+        image.height as number
       )
       const out: string = path.join(Image.OUT_PATH, imgName).toString()
       const targetImage = path.join(
@@ -38,7 +38,6 @@ export class Image {
       image.Out_path = Image.OUT_PATH
       return image
     } catch (error) {
-      console.error(error)
       return null
     }
   }
@@ -68,13 +67,10 @@ export class Image {
         image.height as number
       )
       if (await Image.isImageExist(name)) {
-        console.log('get existent')
         image.name = name
         image.Out_path = Image.OUT_PATH
         return image
       } else {
-        console.log('creat new')
-
         const resized_image: I_image | null = await Image.resize(image)
         return resized_image
       }

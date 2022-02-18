@@ -18,7 +18,7 @@ const path_1 = __importDefault(require("path"));
 const fs_1 = __importDefault(require("fs"));
 class Image {
     static createImageName(name, width, height) {
-        const imgName = `thump-${name === null || name === void 0 ? void 0 : name.split('.')[0]}-${width}-${height}.png`;
+        const imgName = `thumb-${name === null || name === void 0 ? void 0 : name.split('.')[0]}-${width}-${height}.png`;
         return imgName;
     }
     static resize(image) {
@@ -35,7 +35,6 @@ class Image {
                 return image;
             }
             catch (error) {
-                console.error(error);
                 return null;
             }
         });
@@ -64,13 +63,11 @@ class Image {
                 //check if image exist or not
                 const name = Image.createImageName(image.name, image.width, image.height);
                 if (yield Image.isImageExist(name)) {
-                    console.log('get existent');
                     image.name = name;
                     image.Out_path = Image.OUT_PATH;
                     return image;
                 }
                 else {
-                    console.log('creat new');
                     const resized_image = yield Image.resize(image);
                     return resized_image;
                 }
