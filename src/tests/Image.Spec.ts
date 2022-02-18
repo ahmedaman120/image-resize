@@ -12,22 +12,20 @@ const type = 'png'
 const test_width = 100
 const test_height = 100
 
-beforeAll( (done) => {
+beforeAll((done) => {
   console.log(OUTPUT_PATH)
-  fs.rmSync(OUTPUT_PATH + '/', { recursive: true });
+  fs.rmSync(OUTPUT_PATH + '/', { recursive: true })
   fs.mkdirSync(OUTPUT_PATH)
   done()
 })
 
 afterAll((done) => {
-  fs.rmSync(OUTPUT_PATH + '/', { recursive: true });
+  fs.rmSync(OUTPUT_PATH + '/', { recursive: true })
   fs.mkdirSync(OUTPUT_PATH)
   done()
 })
 
 describe('Test image Class components', () => {
-
-
   it('test create thumbnail', async () => {
     const img: I_image = {
       In_path: Image.IN_PATH as unknown as string,
@@ -36,14 +34,14 @@ describe('Test image Class components', () => {
       name: `${testImagesNamesExist[0]}.${type}`,
     }
     try {
-      const imageResized: I_image | null = await Image.createThumpnails(img);
+      const imageResized: I_image | null = await Image.createThumpnails(img)
       expect(imageResized?.name).toEqual('thumb-test-100-100.png')
     } catch (error) {
       console.log(error)
     }
   })
 
-  it('test create thumbnail by using unexisten image',async () => {
+  it('test create thumbnail by using unexisten image', async () => {
     const img: I_image = {
       In_path: Image.IN_PATH as unknown as string,
       width: test_width,
@@ -51,7 +49,7 @@ describe('Test image Class components', () => {
       name: `${testImagesNamesNotExist[0]}.${type}`,
     }
     try {
-      const imageResized: I_image | null = await Image.createThumpnails(img);
+      const imageResized: I_image | null = await Image.createThumpnails(img)
       expect(imageResized).toEqual(null)
     } catch (error) {
       console.log(error)

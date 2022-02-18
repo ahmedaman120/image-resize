@@ -27,7 +27,7 @@ export class Image {
       const targetImage = path.join(
         image.In_path as string,
         image.name as string
-      );
+      )
       await sharp(targetImage as string)
         .resize(
           parseInt(image.width as string),
@@ -44,10 +44,11 @@ export class Image {
 
   static async isImageExist(filename = ''): Promise<boolean> {
     if (!filename) {
-      return false // Fail early
+      //end if it empty
+      return false
     }
 
-    return (await Image.getAllImages()).includes(filename)
+    return (await Image.getAllImages()).includes(filename) // ['test','test-2'].include(filename)
   }
 
   static async getAllImages(): Promise<string[]> {

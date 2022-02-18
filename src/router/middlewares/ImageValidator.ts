@@ -3,6 +3,7 @@ import fs from 'fs'
 import path from 'path'
 
 export default {
+  // eslint-disable-next-line @typescript-eslint/ban-types
   validateImageParm(req: Request, res: Response, next: Function) {
     if (!req.query.name) {
       return res
