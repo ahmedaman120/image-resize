@@ -12,12 +12,16 @@ const type = 'png'
 const test_width = 100
 const test_height = 100
 
-beforeAll((done) => {
+beforeAll(async () => {
   // console.log(OUTPUT_PATH)
-  fs.rmSync(OUTPUT_PATH + '/', { recursive: true })
-  fs.mkdirSync(OUTPUT_PATH)
-  done()
-})
+  if (await fs.existsSync(Image.OUT_PATH)){
+    fs.rmSync(OUTPUT_PATH + '/', { recursive: true })
+    fs.mkdirSync(OUTPUT_PATH);
+   
+  } else {
+    fs.mkdirSync(Image.OUT_PATH)
+  }
+});
 
 afterAll((done) => {
   fs.rmSync(OUTPUT_PATH + '/', { recursive: true })
